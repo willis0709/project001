@@ -2,7 +2,7 @@ function getData(name) {
     if (name == "Willis") {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve({ name: "Willis", age: Math.floor(Math.random() * 30) });
+                resolve({ name: "Willis", age: Math.floor(Math.random() * 10) });
             }, 2000);
         });
     } else {
@@ -35,15 +35,16 @@ function getMovies(age) {
         });
     }
 }
-
-getData("Willis")
-    .then((obj) => {
-        console.log(obj);
-        return getMovies(obj.age);
-    })
-    .then((meg) => {
-        console.log(meg.text);
-    })
-    .catch((e) => {
+// async await try catch 
+async function showMovie() {
+    try {
+        const obj = await getData("Willis");
+        const movie = await getMovies(obj.age);
+        console.log(movie.text);
+    } catch (e) {
         console.log(e);
-    });
+    }
+}
+
+
+showMovie();
